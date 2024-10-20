@@ -59,19 +59,19 @@
 					},
 					busRoute: {
 						type: 'geojson',
-						data: 'src/data/bus_route.geojson',
+						data: 'data/bus_route.geojson',
 						attribution:
 							'<a href="https://www.city.takasaki.gunma.jp/page/1756.html">バス情報データ</a>'
 					},
 					stops: {
 						type: 'geojson',
-						data: 'src/data/stops.geojson',
+						data: 'data/stops.geojson',
 						attribution:
 							'<a href="https://www.city.takasaki.gunma.jp/page/1756.html">バス情報データ</a>'
 					},
 					movingBus: {
 						type: 'vector',
-						tiles: [`${location.href}src/data/tiles/{z}/{x}/{y}.pbf`],
+						tiles: [`${location.href}data/tiles/{z}/{x}/{y}.pbf`],
 						minzoom: 10,
 						maxzoom: 18
 					}
@@ -103,7 +103,7 @@
 						source: 'busRoute',
 						paint: {
 							'line-width': 2,
-							'line-color': createColorMatchExpression(),
+							'line-color': createColorMatchExpression() as any,
 							'line-opacity': 0.7
 						}
 					},
@@ -130,7 +130,7 @@
 							'circle-radius': 7,
 							'circle-stroke-color': '#FFFFFF',
 							'circle-stroke-width': 2,
-							'circle-color': createColorMatchExpression(),
+							'circle-color': createColorMatchExpression() as any,
 							'circle-opacity': 0.7
 						}
 					}
@@ -150,7 +150,7 @@
 		let lastFrameTime = 0;
 
 		// アニメーション用の関数
-		function animateCircleRadius(timestamp) {
+		function animateCircleRadius(timestamp : any) {
 			if (!lastFrameTime) lastFrameTime = timestamp;
 			const elapsed = timestamp - lastFrameTime;
 			const radius = 7 + 1 * Math.sin(elapsed / 300);
