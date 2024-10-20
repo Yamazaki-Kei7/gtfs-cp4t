@@ -1,36 +1,31 @@
-// APIのURL
-const apiUrl = 'https://api.national-holidays.jp/';
+import Holidays from 'date-holidays';
+import { toZonedTime } from 'date-fns-tz';
 
-// 日付が祝日かどうかをAPIから確認する関数
-async function fetchHoliday(date: Date): Promise<boolean> {
-    // オプションを設定して年月日を取得
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 月は0から始まるため、1を加える
-    const day = date.getDate().toString().padStart(2, '0');
+// date-holidaysのインスタンスを作成（日本の祝日を設定）
+const hd = new Holidays('JP');
 
-    // yyyymmdd形式で結合
-    const dateStr = `${year}-${month}-${day}`;
+// 日付が祝日かどうかを確認する関数
+function isHoliday(date: Date): boolean {
+    // 日付を日本時間に変換
+    const japanTimezone = 'Asia/Tokyo';
+    const japanDate = toZonedTime(date, japanTimezone);
 
-    try {
-        const response = await fetch(`${apiUrl}${dateStr}`);
-        console.log('Response status:', response.status);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        return data.isHoliday; // APIのレスポンスに応じて適切に変更
-    } catch (error) {
-        console.error('Error:', error);
-        return false; // エラーが発生した場合は祝日ではないとみなす
-    }
+    // date-holidaysで祝日を判定
+    const holiday = hd.isHoliday(japanDate);
+    return holiday ? true : false;
 }
 
-export async function determineDayType(date: Date): Promise<string> {
-    const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-    const isHoliday = await fetchHoliday(date);
-    console.log('Holiday: ' + isHoliday);
+// 日付の種類を判定する関数
+export function determineDayType(date: Date): string {
+    // 日付を日本時間に変換
+    const japanTimezone = 'Asia/Tokyo';
+    const japanDate = toZonedTime(date, japanTimezone);
 
-    if (dayOfWeek === 0 || isHoliday) {
+    const dayOfWeek = japanDate.getDay(); // 0 = 日曜, 1 = 月曜, ..., 6 = 土曜
+    const holiday = isHoliday(date);
+    console.log('Holiday:', holiday);
+
+    if (dayOfWeek === 0 || holiday) {
         return '日曜または祝日';
     } else if (dayOfWeek === 6) {
         return '土曜';

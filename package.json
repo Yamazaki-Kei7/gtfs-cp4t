@@ -20,7 +20,7 @@
 		"@mdi/js": "^7.4.47",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/kit": "^2.7.2",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "^8.56.7",
 		"autoprefixer": "^10.4.19",
@@ -44,6 +44,8 @@
 	"type": "module",
 	"dependencies": {
 		"ajax": "^0.0.4",
+		"date-fns-tz": "^3.2.0",
+		"date-holidays": "^3.23.12",
 		"date-picker-svelte": "^2.13.0",
 		"maplibre-gl": "^4.4.0",
 		"maplibre-gl-opacity": "^1.7.0",
@@ -51,6 +53,6 @@
 		"svelte-material-ui": "^7.0.0"
 	},
 	"engines": {
-		 "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+		"node": "^18.18.0 || ^20.9.0 || >=21.1.0"
 	}
 }
