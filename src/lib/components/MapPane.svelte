@@ -27,7 +27,6 @@
 
 	// 時間の変更
 	$: if (minutes) {
-		console.log(minutes);
 		map?.setFilter('movingBus', [
 			'all',
 			['==', ['get', 'a_time'], minutes],
