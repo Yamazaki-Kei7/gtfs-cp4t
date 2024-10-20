@@ -49,5 +49,8 @@
 		"maplibre-gl-opacity": "^1.7.0",
 		"svelte-material-icons": "^3.0.5",
 		"svelte-material-ui": "^7.0.0"
+	},
+	"engines": {
+		 "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
 	}
 }
